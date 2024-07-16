@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .head {
+            color: #e74c3c;
+            font-family: "Roboto";
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+
+        .display {
+            background-color: #222;
+            color: #fff;
+            font-size: 2rem;
+            padding: 10px;
+            text-align: right;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 20px;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn.operator {
+            background-color: #f39c12;
+        }
+
+        .btn.clear {
+            background-color: #e74c3c;
+            grid-column: span 4;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <h1 class="head">CALCULATOR</h1>
+        <div id="display" class="display">0</div>
+        <div class="buttons">
+            <button class="btn" data-value="7">7</button>
+            <button class="btn" data-value="8">8</button>
+            <button class="btn" data-value="9">9</button>
+            <button class="btn" data-value="/" class="operator">/</button>
+            <button class="btn" data-value="4">4</button>
+            <button class="btn" data-value="5">5</button>
+            <button class="btn" data-value="6">6</button>
+            <button class="btn" data-value="*" class="operator">*</button>
+            <button class="btn" data-value="1">1</button>
+            <button class="btn" data-value="2">2</button>
+            <button class="btn" data-value="3">3</button>
+            <button class="btn" data-value="-" class="operator">-</button>
+            <button class="btn" data-value="0">0</button>
+            <button class="btn" data-value=".">.</button>
+            <button class="btn" data-value="=" class="operator">=</button>
+            <button class="btn" data-value="+" class="operator">+</button>
+            <button class="btn" data-value="C" class="clear">C</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const display = document.getElementById('display');
+            const buttons = document.querySelectorAll('.btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const value = button.getAttribute('data-value');
+                    if (value === 'C') {
+                        display.innerText = '0';
+                    } else if (value === '=') {
+                        try {
+                            display.innerText = eval(display.innerText);
+                        } catch (error) {
+                            display.innerText = 'Error';
+                        }
+                    } else {
+                        if (display.innerText === '0') {
+                            display.innerText = value;
+                        } else {
+                            display.innerText += value;
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>
